@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="recipe"
+            type="com.example.android.simplerecipes.data.model.domain.Recipe" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/recipe_image_view"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:adjustViewBounds="false"
+                android:contentDescription="@{recipe.name}"
+                android:cropToPadding="false"
+                android:scaleType="centerCrop"
+                app:imageResource="@{recipe.image}"
+                app:layout_constraintDimensionRatio="h,4:3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize8dp"
+                tools:src="@tools:sample/backgrounds/scenic" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/recipe_name_text_view"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{recipe.name}"
+                app:layout_constraintBottom_toTopOf="@id/recipe_headline_text_view"
+                app:layout_constraintEnd_toEndOf="@+id/recipe_image_view"
+                app:layout_constraintStart_toStartOf="@+id/recipe_image_view"
+                app:layout_constraintTop_toBottomOf="@id/recipe_image_view"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Test Recipe Name" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/recipe_headline_text_view"
+                style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{recipe.headline}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/recipe_name_text_view"
+                app:layout_constraintStart_toStartOf="@+id/recipe_name_text_view"
+                app:layout_constraintTop_toBottomOf="@id/recipe_name_text_view"
+                tools:text="Test headline headline headline" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>
