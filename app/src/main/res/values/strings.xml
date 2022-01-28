@@ -2,4 +2,13 @@
     <string name="app_name">Simple Recipes</string>
 
     <string name="no_recipes_available">No Recipes Available</string>
+
+    <string name="operation_failed">Operation failed</string>
+    <string name="please_enter_your_login_credentials">Please enter your login credentials</string>
+
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="forgot_password_question_mark">Forgot Password?</string>
+    <string name="create_account">Create Account</string>
 </resources>
