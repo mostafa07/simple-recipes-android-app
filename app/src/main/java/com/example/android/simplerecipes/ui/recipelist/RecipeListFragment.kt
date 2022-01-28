@@ -11,6 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.android.simplerecipes.R
 import com.example.android.simplerecipes.databinding.FragmentRecipeListBinding
 import com.example.android.simplerecipes.ui.adapter.RecipeAdapter
+import com.example.android.simplerecipes.util.disableUserInteraction
+import com.example.android.simplerecipes.util.reEnableUserInteraction
+import com.example.android.simplerecipes.util.showSnackbar
 
 class RecipeListFragment : Fragment() {
 
@@ -52,9 +55,30 @@ class RecipeListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupViewModelObservations()
+    }
+
+    private fun setupViewModelObservations() {
+        viewModel.successMessage.observe(
+            viewLifecycleOwner,
+            { showSnackbar(binding.root, it, true) })
+        viewModel.errorMessage.observe(
+            viewLifecycleOwner,
+            { showSnackbar(binding.root, it, false) })
+        viewModel.isContentLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.shimmerLayout.shimmerFrameLayout.showShimmer(isLoading)
+
+            if (isLoading) {
+                disableUserInteraction()
+            } else {
+                reEnableUserInteraction()
+            }
+        }
+
         viewModel.recipes.observe(viewLifecycleOwner, {
             it?.apply {
                 recipeAdapter?.dataList = it
+                binding.recipesRecyclerView.smoothScrollToPosition(0)
             }
         })
     }

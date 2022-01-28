@@ -2,6 +2,8 @@ package com.example.android.simplerecipes.ui.recipelist
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.example.android.simplerecipes.BusinessException
+import com.example.android.simplerecipes.R
 import com.example.android.simplerecipes.data.model.app.CustomMessage
 import com.example.android.simplerecipes.data.model.domain.Recipe
 import com.example.android.simplerecipes.data.repository.RecipesRepository
@@ -36,7 +38,9 @@ class RecipeListViewModel(application: Application) : AndroidViewModel(applicati
 
     init {
         viewModelScope.launch {
+            showLoading()
             recipesRepository.getRecipes()
+            hideLoading()
         }
     }
 
@@ -45,7 +49,34 @@ class RecipeListViewModel(application: Application) : AndroidViewModel(applicati
         viewModelJob.cancel()
     }
 
-    class Factory(val application: Application) : ViewModelProvider.Factory {
+
+    private fun setSuccessMessage(message: CustomMessage) {
+        _successMessage.value = message
+    }
+
+    private fun setErrorMessage(errorMessage: CustomMessage) {
+        _errorMessage.value = errorMessage
+    }
+
+    private fun setErrorMessage(t: Throwable) {
+        if (t is BusinessException) {
+            setErrorMessage(t.businessMessage)
+        } else {
+            t.printStackTrace()
+            setErrorMessage(CustomMessage(R.string.operation_failed))
+        }
+    }
+
+    private fun showLoading() {
+        _isContentLoading.value = true
+    }
+
+    private fun hideLoading() {
+        _isContentLoading.value = false
+    }
+
+
+    class Factory(private val application: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(RecipeListViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
