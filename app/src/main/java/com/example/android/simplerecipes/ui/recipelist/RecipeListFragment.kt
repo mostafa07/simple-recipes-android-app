@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.android.simplerecipes.R
 import com.example.android.simplerecipes.databinding.FragmentRecipeListBinding
 import com.example.android.simplerecipes.ui.adapter.RecipeAdapter
@@ -43,9 +43,9 @@ class RecipeListFragment : Fragment() {
         binding.viewModel = viewModel
 
         recipeAdapter = RecipeAdapter { recipe, _ ->
-            // TODO remove toast and navigate to detail screen
-            Toast.makeText(requireContext(), "Recipe Clicked: " + recipe.name, Toast.LENGTH_SHORT)
-                .show()
+            val directions =
+                RecipeListFragmentDirections.actionRecipeListFragmentToRecipeDetailFragment(recipe)
+            findNavController().navigate(directions)
         }
         binding.recipesRecyclerView.adapter = recipeAdapter
 

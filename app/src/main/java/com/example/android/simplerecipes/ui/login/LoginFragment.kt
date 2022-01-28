@@ -19,9 +19,6 @@ class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
 
     private val viewModel: LoginViewModel by lazy {
-        val activity = requireNotNull(this.activity) {
-            "ViewModel can only be accessed after OnViewCreated() ic called"
-        }
         ViewModelProvider(this).get(LoginViewModel::class.java)
     }
 

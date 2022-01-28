@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'org.jetbrains.kotlin.android.extensions'
 }
 
 android {
@@ -25,16 +27,23 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     buildFeatures {
         dataBinding true
         viewBinding true
+    }
+
+    androidExtensions {
+        experimental = true
     }
 }
 
@@ -52,9 +61,6 @@ dependencies {
 
     // Navigation UI KTX
     implementation "androidx.navigation:navigation-ui-ktx:$version_navigation"
-
-    // Fragment KTX
-    // implementation "androidx.fragment:fragment-ktx:$version_fragment_ktx"
 
     // Room
     implementation "androidx.room:room-runtime:$version_room"
